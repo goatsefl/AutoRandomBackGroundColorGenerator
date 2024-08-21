@@ -23,42 +23,23 @@ const changer = (delay) => {
 				document.body.style.transition = randomTransitions();
 				resolve(`Random color added`);
 			} else {
-				toggleOFF();
-				toggleON();
-
 				reject(`Connection Timed Out`);
 			}
 		}, delay);
 	});
 };
-
-const randomColorChanger = async (colorCycle) => {
-	if (colorCycle === 0) {
-		throw new Error(
-			"Give 1 to generate endless random colors at random delays"
-		);
+const toggleButton = document.querySelector("button");
+let bool = false;
+const randomColorChanger = async () => {
+	while (bool) {
+		await changer(Math.floor(Math.random() * 3000));
 	}
-	await changer(Math.floor(Math.random() * 3000));
-	await randomColorChanger(colorCycle);
 };
 
-let bool = true;
-const toggleButton = document.querySelector("button");
 toggleButton.addEventListener("click", () => {
+	bool = !bool;
+	toggleButton.textContent = bool ? "TURN-OFF" : "TURN-ON";
 	if (bool) {
-		toggleButton.textContent = "TURN-OFF";
-		bool = false;
-		const oN = async () => {
-			await randomColorChanger(1);
-		};
-		oN();
-	}
-	if (!bool) {
-		toggleButton.textContent = "TURN-ON";
-		bool = true;
-		const oFF = async () => {
-			throw randomColorChanger(0);
-		};
-		oFF();
+		randomColorChanger();
 	}
 });
