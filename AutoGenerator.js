@@ -2,7 +2,7 @@ const randomColors = () => {
 	const first = Math.floor(Math.random() * 256);
 	const second = Math.floor(Math.random() * 256);
 	const third = Math.floor(Math.random() * 256);
-	const alpha = Math.random() / 1.25;
+	const alpha = Math.random() / 1.4;
 	return `rgba(${first},${second},${third},${alpha})`;
 };
 
